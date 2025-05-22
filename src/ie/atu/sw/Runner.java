@@ -1,7 +1,5 @@
 package ie.atu.sw;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Runner {
@@ -48,9 +46,10 @@ public class Runner {
 
 			switch (input) {
 				case "1" -> System.out.println("You chose option 1: Specify Mapping File");
+				case "1a" -> System.out.println("You chose option 1a: To output the contents of the encodings file...");
 				case "2" -> System.out.println("You chose option 2: Specify Text File to Encode");
 				case "3" -> System.out.println("You chose option 3: Specify Output File (default: ./out.txt)");
-				case "3a" -> outputBook();
+				case "3a" -> OutputBook.outputBook();
 				case "4" -> System.out.println("You chose option 4: Configure Options");
 				case "5" -> System.out.println("You chose option 5: Encode Text File");
 				case "6" -> System.out.println("You chose option 6: Decode Text File");
@@ -58,25 +57,16 @@ public class Runner {
 			}
 		}
 
-		scanner.close();  // Clean up
-
-		}
-
+		// Clean up, close scanner object
+		scanner.close();
 
 
-//		test method to read in a text file and output the contents to the terminal
-//		this works fine
+
+
 //	May need to add some search functionality to search around the project folder for a text file
 //	Alternatively, could give a list of all the books in a book folder (not to be included with final project)
 
-		static void outputBook() throws InterruptedException, FileNotFoundException {
-			File myObj = new File("src/textFiles/1984Orwell.txt");
-			Scanner myReader = new Scanner(myObj);
-			while (myReader.hasNextLine()) {
-				String data = myReader.nextLine();
-				System.out.println(data);
-			}
-			myReader.close();
+
 
 
 
@@ -86,7 +76,7 @@ public class Runner {
 
 		//You may want to include a progress meter in you assignment!
 //		This should run when the program is performing an action
-		
+
 		System.out.print(ConsoleColour.YELLOW);	//Change the colour of the console text
 		int size = 100;							//The size of the meter. 100 equates to 100%
 		for (int i =0 ; i < size ; i++) {		//The loop equates to a sequence of processing steps
