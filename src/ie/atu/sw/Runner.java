@@ -46,7 +46,10 @@ public class Runner {
 
 			switch (input) {
 				case "1" -> System.out.println("You chose option 1: Specify Mapping File");
-				case "1a" -> System.out.println("You chose option 1a: To output the contents of the encodings file...");
+				case "1a" -> {
+					System.out.println("You chose option 1a: To output the contents of the encodings file...");
+					Encodings.outputEncodings();
+				}
 				case "2" -> System.out.println("You chose option 2: Specify Text File to Encode");
 				case "3" -> System.out.println("You chose option 3: Specify Output File (default: ./out.txt)");
 				case "3a" -> OutputBook.outputBook();
