@@ -5,38 +5,16 @@ import java.util.Scanner;
 public class Runner {
 
 	public static void main(String[] args) throws Exception {
-		//You should put the following code into a menu or Menu class
-		System.out.println(ConsoleColour.WHITE);
-		System.out.println("************************************************************");
-		System.out.println("*     ATU - Dept. of Computer Science & Applied Physics    *");
-		System.out.println("*                                                          *");
-		System.out.println("*                       G00472878                          *");
-		System.out.println("*                                                          *");
-		System.out.println("*              Encoding Words with Suffixes                *");
-		System.out.println("*                                                          *");
-		System.out.println("************************************************************");
-		System.out.println("(1) Specify Mapping File");
-		System.out.println("(2) Specify Text File to Encode");
-		System.out.println("(3) Specify Output File (default: ./out.txt)");
-		System.out.println("(4) Configure Options");
-		System.out.println("(5) Encode Text File");
-		System.out.println("(6) Decode Text File");
-		System.out.println("(?) Optional Extras...");
-		System.out.println("(?) Quit");
-		
-		//Output a menu of options and solicit text from the user
-		System.out.print(ConsoleColour.BLACK_BOLD_BRIGHT);
-//		System.out.print("Select Option [1-?]>");
-		System.out.println();
 
-
+		Menu menu = new Menu();
+		menu.menu();
 
 //		reading in the input from the menu
 		Scanner scanner = new Scanner(System.in);
 		String input;
 
 		while (true) {
-			System.out.print("Enter an option (1, 2, 3) or ? to quit: ");
+			System.out.print("Enter an option or ? to quit: ");
 			input = scanner.nextLine();
 
 			if (input.equals("?")) {
@@ -50,13 +28,25 @@ public class Runner {
 					System.out.println("You chose option 1a: To output the contents of the encodings file...");
 					Encodings.outputEncodings();
 				}
-				case "2" -> System.out.println("You chose option 2: Specify Text File to Encode");
+				case "2" -> {System.out.println("You chose option 2: Specify Text File to Encode");
+				System.out.println("Outputting list of books in directory\n");
+				Books.bookList();
+				System.out.println();
+				System.out.println("Which book do you want to encode? [1-?]");}
+
+//				Here we can now begin selecting the book from the list to  encode and call the encoding method
+
+				case "2a" -> System.out.println("You chose option 2a: Specify Text File to Encode");
 				case "3" -> System.out.println("You chose option 3: Specify Output File (default: ./out.txt)");
-				case "3a" -> OutputBook.outputBook();
+				case "3a" -> {
+					System.out.println("You chose option 3a: Read book contents from file...");
+					OutputBook.outputBook();
+				}
 				case "4" -> System.out.println("You chose option 4: Configure Options");
 				case "5" -> System.out.println("You chose option 5: Encode Text File");
 				case "6" -> System.out.println("You chose option 6: Decode Text File");
-				default -> System.out.println("Invalid option.");
+				case "7" -> menu.menu();
+				default -> System.out.println("Invalid option. Have another look at the list");
 			}
 		}
 

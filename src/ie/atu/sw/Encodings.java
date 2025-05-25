@@ -39,7 +39,9 @@ public class Encodings {
         String[] encodingsArray = encodings.toArray(new String[0]);
 
         // Print the arrays to test
+        System.out.println("Printing the word endings ...");
         System.out.println(Arrays.toString(endingsArray));
+        System.out.println("Printing the word encodings ...");
         System.out.println(Arrays.toString(encodingsArray));
     }
 }
