@@ -8,7 +8,7 @@ public class Menu {
         System.out.println("************************************************************");
         System.out.println("*     ATU - Dept. of Computer Science & Applied Physics    *");
         System.out.println("*                                                          *");
-        System.out.println("*                       G00472878                          *");
+        System.out.println("*               Student number: G00472878                  *");
         System.out.println("*                                                          *");
         System.out.println("*              Encoding Words with Suffixes                *");
         System.out.println("*                                                          *");

@@ -9,7 +9,7 @@ public class Books {
 //    Get the names of the books to encode - can link the book numbers later
 
     public static void bookList() {
-        List<String> booksInList = new ArrayList<String>();
+        List<String> booksInList = new ArrayList<>();
         File[] listOfFiles = new File("src/textFiles").listFiles();
 
 //        used instead of a while loop to avoid nesting loops all over the place
