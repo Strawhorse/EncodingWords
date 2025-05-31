@@ -16,7 +16,7 @@ public class Encodings {
 
 //        create arraylists with more functionality than normal arrays; can convert back later
         List<String> endings = new ArrayList<>();
-        List<String> encodings = new ArrayList<>();
+        List<Integer> encodings = new ArrayList<>();
 
         while (myReader.hasNextLine()) {
             String data = myReader.nextLine();
@@ -27,7 +27,7 @@ public class Encodings {
                 if (i % 2 == 0) {
                     endings.add(values[i]);
                 } else {
-                    encodings.add(values[i]);
+                    encodings.add(Integer.valueOf(values[i]));
                 }
             }
         }
@@ -36,7 +36,7 @@ public class Encodings {
 
         // Convert lists to arrays
         String[] endingsArray = endings.toArray(new String[0]);
-        String[] encodingsArray = encodings.toArray(new String[0]);
+        Integer[] encodingsArray = encodings.toArray(encodings.toArray(new Integer[0]));
 
         // Print the arrays to test
         System.out.println("Printing the word endings ...");
