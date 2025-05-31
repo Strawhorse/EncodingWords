@@ -2,46 +2,52 @@ package ie.atu.sw;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class Encodings {
 
     static void outputEncodings() throws FileNotFoundException {
+        File file = new File("src/encodings-10000.csv");
 
-        File myObj = new File("src/encodings-10000.csv");
-        Scanner myReader = new Scanner(myObj);
+        // First pass: Count number of pairs
+        Scanner counter = new Scanner(file);
+        int entryCount = 0;
 
-//        create arraylists with more functionality than normal arrays; can convert back later
-        List<String> endings = new ArrayList<>();
-        List<Integer> encodings = new ArrayList<>();
+        while (counter.hasNextLine()) {
+            String line = counter.nextLine();
+            String[] values = line.split(",");
+            entryCount += values.length / 2;
+        }
+        counter.close();
 
-        while (myReader.hasNextLine()) {
-            String data = myReader.nextLine();
-            String[] values = data.split(",");
+        // Allocate arrays
+        String[] Word_endings = new String[entryCount];
+        int[] Word_encodings = new int[entryCount];
 
-//            separate the endings and the encodings into different arraylists
-            for (int i = 0; i < values.length; i++) {
-                if (i % 2 == 0) {
-                    endings.add(values[i]);
-                } else {
-                    encodings.add(Integer.valueOf(values[i]));
-                }
+        // Second pass: Fill arrays
+        Scanner valuesScanner = new Scanner(file);
+        int index = 0;
+
+        while (valuesScanner.hasNextLine()) {
+            String line = valuesScanner.nextLine();
+            String[] values = line.split(",");
+
+            // Only proceed if we have complete pairs
+            for (int i = 0; i + 1 < values.length; i += 2) {
+                Word_endings[index] = values[i];
+                Word_encodings[index] = Integer.parseInt(values[i + 1]);
+                index++;
             }
         }
 
-        myReader.close();  // Close the scanner
+        // Now close the scanner
+        valuesScanner.close();
 
-        // Convert lists to arrays
-        String[] endingsArray = endings.toArray(new String[0]);
-        Integer[] encodingsArray = encodings.toArray(encodings.toArray(new Integer[0]));
-
-        // Print the arrays to test
+        // Print results
         System.out.println("Printing the word endings ...");
-        System.out.println(Arrays.toString(endingsArray));
+        System.out.println(Arrays.toString(Word_endings));
         System.out.println("Printing the word encodings ...");
-        System.out.println(Arrays.toString(encodingsArray));
+        System.out.println(Arrays.toString(Word_encodings));
     }
 }
