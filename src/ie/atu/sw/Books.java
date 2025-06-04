@@ -13,21 +13,23 @@ public class Books {
         File[] listOfFiles = new File("src/textFiles").listFiles();
 
 //        used instead of a while loop to avoid nesting loops all over the place
-        assert listOfFiles != null;
 
+        // initiate a book counter so the books can be numbered
         int counter = 1;
 
-        for(File file : listOfFiles) {
-            if(file.isFile()) {
+        if (listOfFiles != null) {
+            for(File file : listOfFiles) {
+                if(file.isFile()) {
 
-                String fileName = file.getName();
-                // Remove the .txt extension if present
-                if (fileName.endsWith(".txt")) {
-                    fileName = fileName.substring(0, fileName.length() - 4);
+                    String fileName = file.getName();
+                    // Remove the .txt extension if present
+                    if (fileName.endsWith(".txt")) {
+                        fileName = fileName.substring(0, fileName.length() - 4);
+                    }
+
+                    booksInList.add(counter + " " + fileName);
+                    counter++;
                 }
-
-                booksInList.add(counter + " " + fileName);
-                counter++;
             }
         }
         String[] books = booksInList.toArray(new String[0]);
@@ -35,7 +37,5 @@ public class Books {
         for(String book : books) {
             System.out.println(book);
         }
-
     }
-
 }

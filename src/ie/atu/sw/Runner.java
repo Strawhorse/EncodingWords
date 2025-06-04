@@ -30,6 +30,9 @@ public class Runner {
 					Books.bookList();
 					System.out.println();
 					System.out.println("Which book do you want to encode? [1-?]");
+
+					// testing out new book creation
+					Book book = new Book();
 				}
 				case "3" -> System.out.println("You chose option 3: Specify Output File (default: ./out.txt)");
 				case "4" -> System.out.println("You chose option 4: Configure Options");
