@@ -17,3 +17,10 @@ After review, a good plan would be:
 3. With the book object created (and populated by the array of words), you can then run the encoding and decoding methods on it
 4. Might move the OutputBook class method to the Book class
 5. 
+
+
+Issues:
+
+- Issue calling one method from another: solution, ✅ Solution: Call outputEncodings() inside encodeBooks()
+
+If encodeBooks() must be called alone, and it should automatically get the data it needs, then just move the call inside:

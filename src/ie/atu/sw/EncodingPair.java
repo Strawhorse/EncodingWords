@@ -1,5 +1,7 @@
 package ie.atu.sw;
 
+
+// class used to transport the two encoding arrays
 public class EncodingPair {
 
     public String[] Word_endings;
