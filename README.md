@@ -8,6 +8,8 @@ To do:
 - May need to add some search functionality to search around the project folder for a text file - DONE
 - Alternatively, could give a list of all the books in a book folder (not to be included with final project) - DONE
 - Change the encodings method to return the word endings and encodings as two separate arrays, or alternatively, create two separate methods to return each of these
+[https://www.baeldung.com/java-method-return-multiple-values]
+
 
 After review, a good plan would be:
 1. Have a 'Book' object that is created after a book is chosen from the list (can check to see if a book object already exists)
