@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Encodings {
 
-    static void outputEncodings() throws FileNotFoundException {
+    static EncodingPair outputEncodings() throws FileNotFoundException {
         File file = new File("src/encodings-10000.csv");
 
         // First pass: Count number of pairs
@@ -17,7 +17,7 @@ public class Encodings {
         while (counter.hasNextLine()) {
             String line = counter.nextLine();
             String[] values = line.split(",");
-            entryCount += values.length / 2;
+            entryCount += values.length / 2;  // divide by two because each line will have two values
         }
         counter.close();
 
@@ -45,9 +45,34 @@ public class Encodings {
         valuesScanner.close();
 
         // Print results
-        System.out.println("Printing the word endings ...");
-        System.out.println(Arrays.toString(Word_endings));
-        System.out.println("Printing the word encodings ...");
-        System.out.println(Arrays.toString(Word_encodings));
+        System.out.println("Encodings extracted successfully ...");
+
+        return new EncodingPair(Word_endings, Word_encodings);
+    }
+
+
+
+    
+    // create a method to encode books using the encodings from the above method
+
+    static void encodeBooks(EncodingPair encodingPair) throws FileNotFoundException {
+
+        // initiate the two arrays
+        String[] Word_endings = encodingPair.Word_endings;
+        int[] Word_encodings = encodingPair.Word_encodings;
+
+        // test if it works
+        System.out.println("Word endings:");
+        for (String ending : Word_endings) {
+            System.out.println(ending);
+        }
+
+        // test if it works
+        System.out.println("Word encodings:");
+        for (int encoding : Word_encodings) {
+            System.out.println(encoding);
+        }
+
+
     }
 }
