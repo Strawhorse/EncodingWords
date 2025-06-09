@@ -64,13 +64,13 @@ public class Encodings {
         String[] Word_endings = encodingPair.Word_endings;
         int[] Word_encodings = encodingPair.Word_encodings;
 
-        // test if it works
+        // test if it works - works, tested
         System.out.println("Word endings:");
         for (String ending : Word_endings) {
             System.out.println(ending);
         }
 
-        // test if it works
+        // test if it works - works, tested
         System.out.println("Word encodings:");
         for (int encoding : Word_encodings) {
             System.out.println(encoding);
