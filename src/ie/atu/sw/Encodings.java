@@ -55,9 +55,12 @@ public class Encodings {
     
     // create a method to encode books using the encodings from the above method
 
-    static void encodeBooks(EncodingPair encodingPair) throws FileNotFoundException {
+    static void encodeBooks() throws FileNotFoundException {
 
         // initiate the two arrays
+        EncodingPair encodingPair = outputEncodings(); // instantiate the variables by calling them from the other method
+
+        // Now use the two arrays as before
         String[] Word_endings = encodingPair.Word_endings;
         int[] Word_encodings = encodingPair.Word_encodings;
 

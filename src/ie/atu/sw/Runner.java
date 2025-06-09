@@ -2,6 +2,8 @@ package ie.atu.sw;
 
 import java.util.Scanner;
 
+import static ie.atu.sw.Encodings.encodeBooks;
+
 public class Runner {
 
 	public static void main(String[] args) throws Exception {
@@ -36,7 +38,10 @@ public class Runner {
 				}
 				case "3" -> System.out.println("You chose option 3: Specify Output File (default: ./out.txt)");
 				case "4" -> System.out.println("You chose option 4: Configure Options");
-				case "5" -> System.out.println("You chose option 5: Encode Text File");
+				case "5" -> {
+					System.out.println("You chose option 5: Encode Text File");
+					encodeBooks();
+				}
 				case "6" -> System.out.println("You chose option 6: Decode Text File");
 				case "7" -> menu.menu();
 				case "8" -> {
