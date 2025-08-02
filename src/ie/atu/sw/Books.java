@@ -33,6 +33,7 @@ public class Books {
                 }
             }
         }
+
         String[] books = booksInList.toArray(new String[0]);
 
         for(String book : books) {

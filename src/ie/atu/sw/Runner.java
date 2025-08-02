@@ -26,15 +26,13 @@ public class Runner {
 
 			switch (input) {
 				case "1" -> System.out.println("You chose option 1: Specify Mapping File");
-				case "1a" -> Encodings.outputEncodings();
 				case "2" -> {System.out.println("You chose option 2: Specify Text File to Encode");
 					System.out.println("Outputting list of books in directory\n");
 					Books.bookList();
-					System.out.println();
 					System.out.println("Which book do you want to encode? [1-?]");
 
 					// testing out new book creation
-					Book book = new Book();
+					//	Book book = new Book();
 				}
 				case "3" -> System.out.println("You chose option 3: Specify Output File (default: ./out.txt)");
 				case "4" -> System.out.println("You chose option 4: Configure Options");
@@ -49,7 +47,7 @@ public class Runner {
 					System.out.println("Please choose an additional option to continue... \n******************************* \n ");
 				}
 				case "9" -> {
-//					Check that this works before finishing; only works on terminal with ANSI escape code support, won't work in IDE
+//					Check that this works before finishing; only works on terminal with ANSI escape code support
 					System.out.print("\033[H\033[2J");
 					System.out.flush();
 				}
