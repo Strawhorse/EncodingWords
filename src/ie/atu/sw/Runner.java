@@ -49,8 +49,9 @@ public class Runner {
 					System.out.println("Please choose an additional option to continue... \n******************************* \n ");
 				}
 				case "9" -> {
-					System.out.println("Clearing the display");
-					
+//					Check that this works before finishing; only works on terminal with ANSI escape code support, won't work in IDE
+					System.out.print("\033[H\033[2J");
+					System.out.flush();
 				}
 				default -> System.out.println("Invalid option. Have another look at the list");
 			}

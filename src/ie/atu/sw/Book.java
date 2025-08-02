@@ -5,7 +5,7 @@ public class Book {
     // name of book
     String name;
 
-    // count the number of books created
+    // count the number of books created - maybe delete later
     int counter = 0;
 
     // array to hold the words in the book
@@ -22,10 +22,5 @@ public class Book {
     };
 
 
-
-
-    // method to create a book from the chosen list
-    public void createBook(String name){
-
-    }
+//    other methods to go here
 }

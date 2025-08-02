@@ -7,6 +7,7 @@ import java.util.List;
 public class Books {
 
 //    Get the names of the books to encode - can link the book numbers later
+//    check use of arrays/lists etc. for final assignment
 
     public static void bookList() {
         List<String> booksInList = new ArrayList<>();
