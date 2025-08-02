@@ -20,7 +20,8 @@ public class Menu {
         System.out.println("(5) Encode Text File");
         System.out.println("(6) Decode Text File");
         System.out.println("(7) Show menu options again");
-        System.out.println("(8) Optional Extras...");
+        System.out.println("(8) Optional Extras");
+        System.out.println("(9) Clear the display");
         System.out.println("(?) Quit");
 
         //Output a menu of options and solicit text from the user

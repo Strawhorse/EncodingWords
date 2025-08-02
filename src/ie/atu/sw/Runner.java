@@ -13,11 +13,11 @@ public class Runner {
 
 //		reading in the input from the menu
 		Scanner scanner = new Scanner(System.in);
-		String input;
+
 
 		while (true) {
 			System.out.print("Enter an option or enter ? to quit: ");
-			input = scanner.nextLine();
+			String input = scanner.nextLine();
 
 			if (input.equals("?")) {
 				System.out.println("Exiting...");
@@ -47,6 +47,10 @@ public class Runner {
 				case "8" -> {
 					System.out.println("You chose option 8: Extra options");
 					System.out.println("Please choose an additional option to continue... \n******************************* \n ");
+				}
+				case "9" -> {
+					System.out.println("Clearing the display");
+					
 				}
 				default -> System.out.println("Invalid option. Have another look at the list");
 			}
