@@ -2,8 +2,6 @@ package ie.atu.sw;
 
 import java.util.Scanner;
 
-import static ie.atu.sw.Encodings.encodeBooks;
-
 public class Runner {
 
 	public static void main(String[] args) throws Exception {
@@ -26,27 +24,14 @@ public class Runner {
 
 			switch (input) {
 				case "1" -> System.out.println("You chose option 1: Specify Mapping File");
-				case "2" -> {System.out.println("You chose option 2: Specify Text File to Encode");
-					System.out.println("Outputting list of books in directory\n");
+				case "2" -> {System.out.println("You chose option 2: Choose Text File to Encode from list");
 					Books.bookList();
-					System.out.println("Which book do you want to encode? [1-?]");
-
-					// testing out new book creation
-					//	Book book = new Book();
 				}
 				case "3" -> System.out.println("You chose option 3: Specify Output File (default: ./out.txt)");
-				case "4" -> System.out.println("You chose option 4: Configure Options");
-				case "5" -> {
-					System.out.println("You chose option 5: Encode Text File");
-					encodeBooks();
-				}
-				case "6" -> System.out.println("You chose option 6: Decode Text File");
-				case "7" -> menu.menu();
-				case "8" -> {
-					System.out.println("You chose option 8: Extra options");
-					System.out.println("Please choose an additional option to continue... \n******************************* \n ");
-				}
-				case "9" -> {
+				case "4" -> System.out.println("You chose option 5: Encode Text File");
+				case "5" -> System.out.println("You chose option 6: Decode Text File");
+				case "6" -> menu.menu();
+				case "7" -> {
 //					Check that this works before finishing; only works on terminal with ANSI escape code support
 					System.out.print("\033[H\033[2J");
 					System.out.flush();
@@ -62,7 +47,6 @@ public class Runner {
 
 
 
-		//You may want to include a progress meter in you assignment!
 //		This should run when the program is performing an action
 
 		System.out.print(ConsoleColour.YELLOW);	//Change the colour of the console text
