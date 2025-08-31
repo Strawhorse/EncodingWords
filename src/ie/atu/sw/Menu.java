@@ -13,6 +13,7 @@ public class Menu {
         System.out.println("*              Encoding Words with Suffixes                *");
         System.out.println("*                                                          *");
         System.out.println("************************************************************");
+        System.out.println("(0) Output setup status");
         System.out.println("(1) Specify Mapping File");
         System.out.println("(2) Specify Text File to Encode");
         System.out.println("(3) Specify Output File (default: ./out.txt)");

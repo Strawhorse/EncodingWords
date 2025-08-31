@@ -23,6 +23,10 @@ public class Runner {
 			}
 
 			switch (input) {
+				case "0" -> {
+					System.out.println("Setup status as follows: \n");
+					// output status of mapping file, available books, encoded books, and decoded books
+				}
 				case "1" -> System.out.println("You chose option 1: Specify Mapping File");
 				case "2" -> {System.out.println("You chose option 2: Choose Text File to Encode from list");
 					Books.bookList();

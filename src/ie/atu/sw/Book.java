@@ -5,11 +5,8 @@ public class Book {
     // name of book
     String name;
 
-    // count the number of books created - maybe delete later
-    int counter = 0;
-
     // array to hold the words in the book
-    String[] words;
+    String[] text;
 
     // no argument generator
     public Book() {

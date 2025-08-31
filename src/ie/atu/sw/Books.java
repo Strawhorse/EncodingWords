@@ -36,6 +36,7 @@ public class Books {
                 System.out.println(book);
             }
             System.out.println("Which book do you want to encode? [1-?]");
+            // to add code here to select book
         } else {
             System.out.println("The path you entered is not a valid folder.");
         }
