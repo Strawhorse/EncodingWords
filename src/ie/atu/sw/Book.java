@@ -4,22 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
-//This is the class for a book that is chosen to be encoded
-
 public class Book {
-
-    // name of the book
     private String name;
-
-    // array to hold the words in the book
     private String[] text;
-
-
-
-    // constructor from file only, called from the BooksList class bookList method
-    // No args and n0-args constructors used here as the only way a book object will be created will be using the method in the other class
+    private File file; // keep a reference to the source file
 
     public Book(File file) throws IOException {
+        this.file = file;
         this.name = file.getName();
 
         // Read the file into a single string
@@ -28,7 +19,7 @@ public class Book {
         // Split into words (basic split on whitespace)
         this.text = content.split("\\s+");
 
-        System.out.println("Book created from file: " + name);
+        System.out.println("New book created from file: " + name);
     }
 
     // Getters
@@ -38,5 +29,10 @@ public class Book {
 
     public String[] getText() {
         return text;
+    }
+
+    // NEW: return the original file path
+    public String getPath() {
+        return file.getAbsolutePath();
     }
 }

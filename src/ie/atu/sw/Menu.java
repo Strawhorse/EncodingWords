@@ -4,7 +4,6 @@ public class Menu {
 
     public void menu() {
         //You should put the following code into a menu or Menu class
-        System.out.println(ConsoleColour.WHITE_BOLD_BRIGHT);
         System.out.println("************************************************************");
         System.out.println("*     ATU - Dept. of Computer Science & Applied Physics    *");
         System.out.println("*                                                          *");
@@ -21,12 +20,8 @@ public class Menu {
         System.out.println("(5) Specify Text File location to Decode");
         System.out.println("(6) Decode Text File");
         System.out.println("(7) Show menu options again");
-        System.out.println("(8) Clear the display");
         System.out.println("(?) Quit");
 
-        //Output a menu of options and solicit text from the user
-        System.out.print(ConsoleColour.WHITE_BOLD_BRIGHT);
-        System.out.print("Select Option [1-?]>");
-        System.out.println();
+        System.out.print("Select Option [1-?]> ");
     }
 }
