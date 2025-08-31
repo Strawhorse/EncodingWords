@@ -12,7 +12,7 @@ public class Decoder {
     }
 
 //     Decode a (text) file of numeric codes back into words
-//    Uses bufferedReader and Writer objects to read the text file and write the new one
+//    Uses BufferedReader and Writer objects to read the text file and write the new one
 
     public void decodeFile(String inputPath, String outputPath) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(inputPath));
@@ -29,13 +29,20 @@ public class Decoder {
             String[] codes = line.trim().split("\\s+");
 
 //            Now parse the codes String array for the number codes
+//            Variable name 'num' to keep track that these are ints we're reading in
+
             for (String num : codes) {
                 if (num.isEmpty()) {
                     continue;
                 }
 
-//                Now the key logic here; sets a code as an int and then uses this int with the findTokenForCode method from the Encoder object that this Decoder was created with
+//                Now the key logic here; sets a code as an int and then uses this int with the findTokenForCode method from the Encoder object
+//                that this Decoder was created with. I had considered making separate find... methods in the Encoder class and
+//                Decoder class but decided for coding style to put them in the Encoder class and use it to construct this Decoder class
+
                 int code = Integer.parseInt(num);
+
+//                Again, accessing method from the Encoder class inherited to this Decoder class when it was constructed
                 String token = encoder.findTokenForCode(code);
 
                 if (token == null || token.equals("???")) {
@@ -48,7 +55,8 @@ public class Decoder {
                     continue;
                 }
 
-//                Next token check for the suffix checker @@, and if it's there then use the substring(2) to remove it and append the base word for currentWord Stringbuilder object
+//                Next token check for the suffix checker @@, and if it's there then use the substring(2) to start after these two characters
+//                and append the base word for currentWord StringBuilder object
                 if (token.startsWith("@@")) {
                     // Append suffix to the current word
                     currentWord.append(token.substring(2));
@@ -63,7 +71,7 @@ public class Decoder {
                 }
             }
 
-            // Remove any unfinished word at end of the current line
+            // Remove any unfinished word at end of the current line (may result in some inaccuracies)
             if (!currentWord.isEmpty()) {
                 bw.write(currentWord.toString() + " ");
                 currentWord.setLength(0);

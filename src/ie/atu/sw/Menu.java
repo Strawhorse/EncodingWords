@@ -3,7 +3,9 @@ package ie.atu.sw;
 public class Menu {
 
     public void menu() {
-        //You should put the following code into a menu or Menu class
+
+//        Removed the colouring scheme as it was causing some issues when I was trying to run the program
+
         System.out.println("************************************************************");
         System.out.println("*     ATU - Dept. of Computer Science & Applied Physics    *");
         System.out.println("*                                                          *");

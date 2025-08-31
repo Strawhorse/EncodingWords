@@ -13,7 +13,6 @@ public class Runner {
 	String[] encodedBookNames = new String[50];
 	String[] encodedOutputPaths = new String[50];
 	int encodedCount = 0;
-
 	String[] decodedInputFiles = new String[50];
 	String[] decodedOutputFiles = new String[50];
 	int decodedCount = 0;
@@ -28,10 +27,13 @@ public class Runner {
 		Scanner sc = new Scanner(System.in);
 		String choice = "";
 
+//		creates a new Encoder object when the encoding file is selected
 		encoder = new Encoder(10000); // create empty encoder
 
 		while (!choice.equals("?")) {
-			menu.menu(); // print menu at the start of each loop
+
+			// print menu at the start of each loop
+			menu.menu();
 			choice = sc.nextLine();
 
 			switch (choice) {
@@ -39,10 +41,13 @@ public class Runner {
 					instructions();
 					break;
 
+//				This menu option shows a basic status of the program, including whether you have chosen an encoding file etc.
+//				Some basic use metrics, too.
 				case "1":
 					showStatus();
 					break;
 
+//					This option chooses the encoding file then runs a method from the Encoder class to populate its variables
 				case "2":
 					System.out.print("Enter path to mapping CSV file: ");
 					String csvPath = sc.nextLine();
@@ -53,6 +58,7 @@ public class Runner {
 					}
 					break;
 
+//					Selects the text file to encode, using a method from the BooksList class (which then creates a Book object)
 				case "3":
 					selectedBook = BooksList.bookList();
 					if (selectedBook != null) {
@@ -60,6 +66,7 @@ public class Runner {
 					}
 					break;
 
+//					Runs the encoder
 				case "4":
 					if (selectedBook == null) {
 						System.out.println("No book selected!");
@@ -70,18 +77,21 @@ public class Runner {
 						File dir = new File(outputDir);
 						if (!dir.exists() || !dir.isDirectory()) {
 							System.out.println("Invalid directory. Using current working directory instead.");
+
+//							This specifies the default path to be the current one by setting it to a full stop
 							outputDir = ".";
 						}
 
 						String outputPath = outputDir + File.separator + selectedBook.getName() + "_encoded.txt";
 						try {
-							// NOTE: requires Book#getPath(); if you don't have it, either add it,
-							// or change this call to encoder.encodeBook(selectedBook, outputPath)
+
+//							After choosing the path where you want to put the book, the encodeFile method from the Encoder class is called
+//							This is the method which encodes the book using the encodings .csv file values
 							encoder.encodeFile(selectedBook.getPath(), outputPath);
 							System.out.println("Encoded file written to " + outputPath);
 							selectedEncodedFile = outputPath;
 
-							// record success
+							// If successful ...
 							recordEncoded(selectedBook.getName(), outputPath);
 						} catch (IOException e) {
 							System.out.println("Encoding failed: " + e.getMessage());
@@ -89,11 +99,13 @@ public class Runner {
 					}
 					break;
 
+//					Now choose the encoded file you wish to decode
 				case "5":
 					System.out.print("Enter full path and filename to encoded file: ");
 					selectedEncodedFile = sc.nextLine();
 					break;
 
+//					Now run the Decoder class and methods to decode the encoded book
 				case "6":
 					if (selectedEncodedFile == null || selectedEncodedFile.isBlank()) {
 						System.out.println("No encoded file selected! Please select an encoded file");
@@ -101,7 +113,7 @@ public class Runner {
 						File inFile = new File(selectedEncodedFile);
 						if (!inFile.exists() || !inFile.isFile()) {
 							System.out.println("Encoded file not found:\n  " + inFile.getAbsolutePath());
-							System.out.println("Please choose a valid file (menu option 5).");
+							System.out.println("Please choose a valid file (menu option 5 from main menu).");
 							break;
 						}
 
@@ -110,12 +122,12 @@ public class Runner {
 							new Decoder(encoder).decodeFile(selectedEncodedFile, outputPath);
 							System.out.println("Decoded file written to " + outputPath);
 
-							// record success
+							// if successful ...
 							recordDecoded(selectedEncodedFile, outputPath);
 						} catch (java.io.FileNotFoundException e) {
-							System.out.println("Could not open input file:\n  " + selectedEncodedFile);
+							System.out.println("Could not open encoded input file:\n  " + selectedEncodedFile);
 						} catch (java.io.IOException e) {
-							System.out.println("I/O error during decoding: " + e.getMessage());
+							System.out.println("I/O error during decoding process: " + e.getMessage());
 						}
 					}
 					break;
@@ -135,7 +147,8 @@ public class Runner {
 		sc.close();
 	}
 
-	// ======== stats helpers ========
+	// helper methods to create details for the showStatus method at the bottom
+//	These are basically tracking all the encodings and decodings that are taking place.
 	private void recordEncoded(String bookName, String outPath) {
 		if (encodedCount < 50) {
 			encodedBookNames[encodedCount] = bookName;
@@ -151,31 +164,33 @@ public class Runner {
 			decodedCount++;
 		}
 	}
-	// ===============================
 
+
+// This method will give you a general status for what files are selected, and how many encodings/decodings have taken place
 	private void showStatus() {
 		System.out.println("Program setup status:");
 		if (encoder != null && encoder.getTokens()[0] != null) {
 			System.out.println(" - Mapping file loaded: " + encoder.getMappingFilePath());
 		} else {
-			System.out.println(" - Mapping file loaded: No");
+			System.out.println(" - Mapping file loaded: None");
 		}
 
-		System.out.println(" - Book selected: " +
-				(selectedBook != null ? selectedBook.getName() : "None"));
+		System.out.println(" - Book selected: " + (selectedBook != null ? selectedBook.getName() : "None"));
 
-		// ======= NEW: summary + history =======
+
+		// Summary history of the program encoding history
 		System.out.println("\nEncoding history (count: " + encodedCount + "):");
         if (encodedCount != 0) {
-            // show up to last 10 entries (most recent last for simplicity)
+            // show up to last 10 entries
             int start = Math.max(0, encodedCount - 10);
             for (int i = start; i < encodedCount; i++) {
                 System.out.println("  " + (i + 1) + ". " + encodedBookNames[i] + " -> " + encodedOutputPaths[i]);
             }
         } else {
-            System.out.println("  (none yet)");
+            System.out.println("  (no books encoded yet)");
         }
 
+//		Summary history of the decoding done
         System.out.println("\nDecoding history (count: " + decodedCount + "):");
 		if (decodedCount == 0) {
 			System.out.println("  (none yet)");
