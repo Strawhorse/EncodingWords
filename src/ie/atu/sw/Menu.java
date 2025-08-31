@@ -13,14 +13,15 @@ public class Menu {
         System.out.println("*              Encoding Words with Suffixes                *");
         System.out.println("*                                                          *");
         System.out.println("************************************************************");
-        System.out.println("(0) Output setup status");
-        System.out.println("(1) Specify Mapping File");
-        System.out.println("(2) Specify Text File to Encode");
-        System.out.println("(3) Specify Output File (default: ./out.txt)");
+        System.out.println("(0) Instructions to use program");
+        System.out.println("(1) Program setup status");
+        System.out.println("(2) Specify Mapping File");
+        System.out.println("(3) Specify Text File to Encode");
         System.out.println("(4) Encode Text File");
-        System.out.println("(5) Decode Text File");
-        System.out.println("(6) Show menu options again");
-        System.out.println("(7) Clear the display");
+        System.out.println("(5) Specify Text File to Decode");
+        System.out.println("(6) Decode Text File");
+        System.out.println("(7) Show menu options again");
+        System.out.println("(8) Clear the display");
         System.out.println("(?) Quit");
 
         //Output a menu of options and solicit text from the user
