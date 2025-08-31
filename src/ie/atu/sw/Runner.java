@@ -1,83 +1,133 @@
 package ie.atu.sw;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Runner {
+	private Encodings encodings;
+	private Book selectedBook;
+	private String selectedEncodedFile;
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws IOException {
+		new Runner().start();
+	}
 
+	private void start() throws IOException {
 		Menu menu = new Menu();
-		menu.menu();
+		Scanner sc = new Scanner(System.in);
+		String choice = "";
 
-//		reading in the input from the menu
-		Scanner scanner = new Scanner(System.in);
-		while (true) {
-			System.out.print("Enter an option or enter ? to quit: ");
-			String input = scanner.nextLine();
+		encodings = new Encodings(10000); // create empty encodings
 
-			if (input.equals("?")) {
-				System.out.println("Exiting...");
-				break;
-			}
+		while (!choice.equals("?")) {
+			menu.menu(); // print menu at the start of each loop
+			choice = sc.nextLine();
 
-			switch (input) {
-                case "0" -> {
-                    instructions();
-                }
-                case "1" -> {
-					System.out.println("Setup status as follows: \n");
-					// output status of mapping file, available books, encoded books, and decoded books
-				}
-				case "2" -> System.out.println("You chose option 2: Specify Mapping File");
-				case "3" -> {
-					System.out.println("You chose option 3: Choose Text File to Encode");
-					BooksList.bookList();
-				}
-				case "4" -> System.out.println("You chose option 4: Encode Text File");
-				case "5" -> System.out.println("You chose option 5: Choose Text File to Decode");
-				case "6" -> System.out.println("You chose option 6: Decode Text File");
-				case "7" -> menu.menu();
-				case "8" -> {
-//					Check that this works before finishing; only works on terminal with ANSI escape code support
+			switch (choice) {
+				case "0":
+					instructions();
+					break;
+
+				case "1":
+					showStatus();
+					break;
+
+				case "2":
+					System.out.print("Enter path to mapping CSV file: ");
+					String csvPath = sc.nextLine();
+					try {
+						encodings.loadEncodings(csvPath);
+					} catch (IOException e) {
+						System.out.println("Error loading mapping file: " + e.getMessage());
+					}
+					break;
+
+				case "3":
+					selectedBook = BooksList.bookList();
+					if (selectedBook != null) {
+						System.out.println("Selected book: " + selectedBook.getName());
+					}
+					break;
+
+				case "4":
+					if (selectedBook == null) {
+						System.out.println("No book selected!");
+					} else {
+						System.out.print("Enter directory path where you want to save the encoded file: ");
+						String outputDir = sc.nextLine();
+
+						File dir = new File(outputDir);
+						if (!dir.exists() || !dir.isDirectory()) {
+							System.out.println("Invalid directory. Using current working directory instead.");
+							outputDir = "."; // default
+						}
+
+						// Create output file as chosen directory + book name + ".txt"
+						String outputPath = outputDir + File.separator + selectedBook.getName() + "_encoded.txt";
+
+						new Encoder(encodings).encodeBook(selectedBook, outputPath);
+						System.out.println("Encoded file written to " + outputPath);
+						selectedEncodedFile = outputPath;
+					}
+					break;
+
+				case "5":
+					System.out.print("Enter path to encoded file: ");
+					selectedEncodedFile = sc.nextLine();
+					break;
+
+				case "6":
+					if (selectedEncodedFile == null) {
+						System.out.println("No encoded file selected!");
+					} else {
+						String outputPath = selectedEncodedFile + ".decoded.txt";
+						new Decoder(encodings).decodeFile(selectedEncodedFile, outputPath);
+						System.out.println("Decoded file written to " + outputPath);
+					}
+					break;
+
+				case "7":
+					// just reprint menu for user again
+					break;
+
+				case "8":
 					System.out.print("\033[H\033[2J");
 					System.out.flush();
-				}
-				default -> System.out.println("Invalid option. Have another look at the list");
+					break;
+
+				case "?":
+					System.out.println("Goodbye!");
+					break;
+
+				default:
+					System.out.println("Invalid choice.");
 			}
 		}
+		sc.close();
+	}
 
-		// Clean up, close scanner object
-		scanner.close();
-
-
-
-
-
-//		This should run when the program is performing an action
-
-		System.out.print(ConsoleColour.YELLOW);	//Change the colour of the console text
-		int size = 100;							//The size of the meter. 100 equates to 100%
-		for (int i =0 ; i < size ; i++) {		//The loop equates to a sequence of processing steps
-			PrintProgress.printProgress(i + 1, size); 		//After each (some) steps, update the progress meter
-			Thread.sleep(5);					//Slows things down so the animation is visible
+//	This method shows the status of the required files needed to work
+	private void showStatus() {
+		System.out.println("Program setup status:");
+		if (encodings != null && encodings.getTokens()[0] != null) {
+			System.out.println(" - Mapping file loaded: " + encodings.getMappingFilePath());
+		} else {
+			System.out.println(" - Mapping file loaded: No");
 		}
-		
+
+		System.out.println(" - Book selected: " +
+				(selectedBook != null ? selectedBook.getName() : "None"));
 	}
 
+
+//	created a method for giving the instructions as the menu was getting a bit cluttered
 	public static void instructions() {
-		System.out.println("To encode a book, you must do the following: \n");
-		System.out.println("Specify a mapping/encoding file (.csv)\n");
-		System.out.println("Choose a book you wish to encode\n");
-		System.out.println("Choose the (4)Encode Text File option from the menu\n");
-		System.out.println("Specify the output file location where you want to save your encoded book\n");
-		System.out.println("Book will then be encoded and saved to this location\n");
-		System.out.println("***************************************\n");
-		System.out.println("To decode a book, you must do the following: \n");
-		System.out.println("Choose the [encoded] book you wish to decode\n");
-		System.out.println("Select (6)Decode Text File option from the menu\n");
-		System.out.println("Specify the output file location where you want to save your decoded book\n");
-		System.out.println("The book will then be decoded and saved to this location\n");
-		System.out.println("***************************************\n");
+		System.out.println("Instructions:");
+		System.out.println(" 1. Specify a mapping CSV file first.");
+		System.out.println(" 2. Select a book to encode.");
+		System.out.println(" 3. Encode the selected book to a specific location.");
+		System.out.println(" 4. Select an encoded file to decode.");
+		System.out.println(" 5. Decode the encoded file to a specific location.");
 	}
-
 }
